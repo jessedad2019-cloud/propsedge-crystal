@@ -4,8 +4,8 @@ services:
     env: node
     plan: free
     rootDir: server
-    buildCommand: "npm install"
-    startCommand: "node index.js"
+    buildCommand: "npm run build"
+    startCommand: "npm start"
     envVars:
       - key: BUILD_TAG
         value: PROPS-EDGE_CRYSTAL_EDITION_WORLD_GENESIS
