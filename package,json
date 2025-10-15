@@ -1,4 +1,4 @@
- 
+{
   "name": "propsedge-crystal",
   "version": "1.0.0",
   "private": true,
@@ -12,5 +12,8 @@
     "express": "^4.18.2",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1"
+  },
+  "engines": {
+    "node": "22.x"
   }
- 
+}

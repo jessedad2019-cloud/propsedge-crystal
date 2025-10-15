@@ -1,5 +1,12 @@
+// PropsEdge Crystal — Server Entry Point
+// ======================================
+// Express backend server with CORS + static file serving
+// Works locally (localhost) and on Render for production.
+
 import express from "express";
 import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -8,39 +15,26 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get("/health", (req, res) => {
-  res.json({ ok: true, tag: process.env.BUILD_TAG || "LOCAL", guardian: true });
+// Resolve directory paths cleanly (ES module safe)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Serve the built frontend (client/dist)
+app.use(express.static(path.join(__dirname, "../client/dist")));
+
+// Example API route (you can expand this later)
+app.get("/api/status", (req, res) => {
+  res.json({ message: "✅ PropsEdge Crystal backend active." });
 });
 
-app.get("/api/test", (req, res) => {
-  res.json({ message: "PropsEdge Crystal API is alive." });
+// Catch-all — serve frontend for any other route
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
 });
 
+// Use Render-assigned port OR default to 5050 for local dev
 const PORT = process.env.PORT || 5050;
+
 app.listen(PORT, () => {
   console.log(`✅ API listening on port ${PORT}`);
 });
-
-// === NPC SMART RESPAWN SYSTEM ===
-import fs from "fs";
-
-const npcDataFile = "./config/npcs.json"; // or wherever you store world state
-
-function randomizeNPCs() {
-  try {
-    const npcData = JSON.parse(fs.readFileSync(npcDataFile));
-    const randomized = npcData.map(npc => ({
-      ...npc,
-      x: Math.floor(Math.random() * 1000),
-      y: Math.floor(Math.random() * 1000),
-      state: "wandering"
-    }));
-    fs.writeFileSync(npcDataFile, JSON.stringify(randomized, null, 2));
-    console.log("🎮 NPCs reshuffled for new session");
-  } catch (err) {
-    console.log("⚠️ No NPC data file found (skipping shuffle)");
-  }
-}
-
-// Trigger respawn 10 seconds after startup
-setTimeout(randomizeNPCs, 10000);
