@@ -3,12 +3,14 @@ services:
     name: propsedge-api
     env: node
     plan: free
-    rootDir: server
-    buildCommand: "npm run build"
-    startCommand: "npm start"
+    rootDir: .
+    buildCommand: npm run build
+    startCommand: npm start
     envVars:
       - key: BUILD_TAG
         value: PROPS-EDGE_CRYSTAL_EDITION_WORLD_GENESIS
+      - key: NODE_VERSION
+        value: 22.10.0
     autoDeploy: true
 
   - type: web
@@ -16,8 +18,8 @@ services:
     env: static
     plan: free
     rootDir: client
-    buildCommand: "npm install && npm run build"
-    staticPublishPath: "dist"
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
     headers:
       - path: /*
         name: Cache-Control
