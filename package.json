@@ -1,0 +1,14 @@
+{
+  "name": "propsedge-crystal",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "setup": "cd server && npm install && cd ../client && npm install && cd ..",
+    "ip3": "npx concurrently -k -n API,WEB \"cd server && npm run dev\" \"cd client && npm run dev\"",
+    "stop": "taskkill /F /IM node.exe /T 2>$null",
+    "audit:final": "node ops/final-cert.js"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0"
+  }
+}
