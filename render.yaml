@@ -5,8 +5,7 @@ services:
     plan: free
     rootDir: server
     buildCommand: npm install
-    startCommand: node index.js
-    envVars:
+    startCommand: node start
       - key: BUILD_TAG
         value: PROPS-EDGE_CRYSTAL_EDITION_WORLD_GENESIS
       - key: NODE_VERSION
