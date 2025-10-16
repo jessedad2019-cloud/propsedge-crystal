@@ -33,7 +33,7 @@ app.get("*", (req, res) => {
 });
 
 // Use Render-assigned port OR default to 5050 for local dev
-const PORT = process.env.PORT || 5050;
+const PORT = process.env.PORT || 1444;
 
 app.listen(PORT, () => {
   console.log(`✅ API listening on port ${PORT}`);

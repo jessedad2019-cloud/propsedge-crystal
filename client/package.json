@@ -1,13 +1,14 @@
 {
-  "name": "propsedge-client",
+  "name": "propsedge-api",
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview --port 5173"
+    "start": "node index.js",
+    "build": "echo 'no build step'"
   },
-  "devDependencies": {
-    "vite": "^5.4.0"
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1"
   }
 }
